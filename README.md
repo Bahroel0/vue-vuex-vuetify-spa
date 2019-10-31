@@ -1,4 +1,12 @@
-# iaps-iapt
+# Boilerplate Vue App SPA
+
+## Module Include
+
+* Vue-Cli
+* Vue-Router
+* Vuex (customize)
+* Vuetify (CSS Library)
+* Eslint & Prettier (Linter)
 
 ## Project setup
 ```
