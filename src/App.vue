@@ -1,32 +1,35 @@
 <template>
-  <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
-    </div>
-    <router-view />
-  </div>
+  <v-app>
+    <Navbar v-if="isAuth" />
+    <v-content>
+      <router-view />
+    </v-content>
+  </v-app>
 </template>
-
-<style>
-#app {
-  font-family: "Avenir", Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
-
-#nav {
-  padding: 30px;
-}
-
-#nav a {
-  font-weight: bold;
-  color: #2c3e50;
-}
-
-#nav a.router-link-exact-active {
-  color: #42b983;
-}
-</style>
+<script>
+import Cookie from "js-cookie";
+import Navbar from "@/components/Global/Navbar";
+export default {
+  name: "App",
+  components: {
+    Navbar
+  },
+  data() {
+    return {};
+  },
+  async created() {
+    const user = Cookie.get("user");
+    if (user) {
+      await this.$store.dispatch("setUser", JSON.parse(user));
+    }
+    if (!this.isAuth) {
+      this.$router.push("/login");
+    }
+  },
+  computed: {
+    isAuth() {
+      return this.$store.getters.user !== null;
+    }
+  }
+};
+</script>
